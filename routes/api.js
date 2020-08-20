@@ -15,6 +15,9 @@ const SampleController = require("../controllers/sample_controller");
  * Import all the middlewares
  */
 const SampleMiddleware = require("../middlewares/sample_middleware");
+const AuthController = require("../controllers/auth_controller");
+
+router.post('/auth/register', AuthController.register);
 
 router.get('/version', SampleMiddleware, SampleController.index);
 

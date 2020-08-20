@@ -1,7 +1,7 @@
+const User = require("../models/User");
+
 module.exports = class SampleController {
-  static index(req, res) {
-    return res.json({ message: "V8 Engine" })
-  }
+  static index(req, res) { }
 
   static create(req, res) { }
 
