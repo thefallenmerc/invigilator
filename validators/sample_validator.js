@@ -1,79 +1,39 @@
-"use strict";
+const Validator = require('./validator');
 
-const ValidatorJS = require("validatorjs");
+class SampleValidator extends Validator {
 
-/**
- * Create Company Validator
- */
-class Validator {
-  /**
-   * Constructor
-   * @param {*} req 
-   */
-  constructor(req) {
+  constructor(data = {}, rules = {}, messages = {}) {
     /**
-     * Rules
+     * Define You rules here
      */
-    this.rules = {};
+    rules = {
+    };
 
-    /**
-     * Error Messages
-     */
-    this.messages = {};
-
-    /**
-     * Validated fields' object
-     */
-    this.validated = {};
-
-    /**
-     * Object to be validated
-     */
-    this.data = req.body;
-
-    /**
-     * Validator
-     */
-    this.validator = new ValidatorJS(this.data, this.rules, this.messages);
-
-    /**
-     * Validate all the fields
-     */
-    this.getValidated();
+    super(data, rules, messages);
   }
 
   /**
-   * Check if the validator fails
+   * 
+   * Static function that validates a incoming request as a middleware
+   * 
+   * @param {express.Request} req 
+   * @param {express.Response} res 
+   * @param {express.Next} next 
    */
-  fails() {
-    return this.validator.fails();
-  }
-
-  /**
-   * Check if the validator passes
-   */
-  passes() {
-    return this.validator.passes();
-  }
-
-  errors() {
-    return this.validator.errors;
-  }
-
-  /**
-   * Get only the validated content
-   */
-  getValidated(getNull = false) {
-    for (const rule in this.rules) {
-      if(this.data[rule] == undefined) {
-        if(getNull) {
-          this.validated[rule] = null;
-        }
-      } else {
-        this.validated[rule] = this.data[rule];
-      }
+  static middleware(req, res, next) {
+    const validator = new LoginValidator(req.body);
+    // check if data is valid
+    if (validator.fails()) {
+      // return error in case data invalid
+      return res.json(validator.errors());
+    } else {
+      // set validated values a req.body
+      req.body = validator.validated;
+      // continue with next middleware
+      next();
     }
   }
+
 }
 
-module.exports = Validator;
+module.exports = SampleValidator;
