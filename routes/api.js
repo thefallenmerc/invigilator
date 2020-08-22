@@ -18,9 +18,18 @@ const SampleMiddleware = require("../middlewares/sample_middleware");
 const AuthController = require("../controllers/auth_controller");
 const LoginValidator = require("../validators/login_validator");
 const RegisterValidator = require("../validators/register_validator");
+const TestController = require("../controllers/cms/test_controller");
+const TestValidator = require("../validators/cms/test_validator");
+const AuthMiddleware = require("../middlewares/auth_middleware");
 
+// Authetication
 router.post('/auth/register', RegisterValidator.middleware, AuthController.register);
 router.post('/auth/login',LoginValidator.middleware, AuthController.login);
+
+// cms
+// Test Controller
+router.get('/cms/test', AuthMiddleware, TestController.index);
+router.post('/cms/test', AuthMiddleware, TestValidator.middleware, TestController.create);
 
 router.get('/version', SampleMiddleware, SampleController.index);
 
