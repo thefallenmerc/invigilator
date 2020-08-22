@@ -17,7 +17,12 @@ module.exports = class TestController {
     });
   }
 
-  static async createTest(req, res) {
+  /**
+   * Assign Test to user
+   * @param {*} req 
+   * @param {*} res 
+   */
+  static async assignTest(req, res) {
 
     const validator = new Validator(req.body, {
       test: "string|required",
