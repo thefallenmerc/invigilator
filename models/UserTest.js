@@ -13,6 +13,21 @@ const userTestSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User",
     },
+    isCompleted: {
+        required: true,
+        default: false,
+        type: Boolean
+    },
+    result: {
+        required: false,
+        type: String
+    },
+    answers: [
+        {
+            question: Schema.Types.ObjectId,
+            answer: String,
+        },
+    ],
 }, {
     timestamps: true,
     toObject: {
