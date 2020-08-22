@@ -24,8 +24,8 @@ const userSchema = new Schema({
   toObject: {
     transform: (obj, ret) => {
       delete ret.__v;
-      delete ret._id;
       ret.id = ret._id;
+      delete ret._id;
       delete ret.password;
       return ret;
     }
@@ -33,8 +33,8 @@ const userSchema = new Schema({
   toJSON: {
     transform: (obj, ret) => {
       delete ret.__v;
-      delete ret._id;
       ret.id = ret._id;
+      delete ret._id;
       delete ret.password;
       return ret;
     }
