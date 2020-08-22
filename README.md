@@ -4,16 +4,16 @@
 
 #### Functionality Added
 
-[x] - User Login
-[x] - User Register
-[x] - CMS > Test Create
-[x] - CMS > Test List
-[x] - CMS > Test Assign
-[x] - User Fetch Test [ by id ]
+- [x] User Login
+- [x] User Register
+- [x] CMS > Test Create
+- [x] CMS > Test List
+- [x] CMS > Test Assign
+- [x] User Fetch Test [ by id ]
 
 
 #### Functionlity to be Added
 
-[ ] - User Authorization on role basis
-[ ] - User Fetch Test [ all ]
-[ ] - User Save Result
+- [ ] User Authorization on role basis
+- [ ] User Fetch Test [ all ]
+- [ ] User Save Result
