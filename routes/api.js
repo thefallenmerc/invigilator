@@ -33,6 +33,7 @@ router.post('/auth/profile', AuthMiddleware, AuthController.update);
 // Test Controller
 router.get('/cms/test', AuthMiddleware, TestController.index);
 router.post('/cms/test', AuthMiddleware, TestValidator.middleware, TestController.create);
+router.post('/cms/test/create', AuthMiddleware, TestController.createTest);
 
 router.get('/version', SampleMiddleware, SampleController.index);
 
