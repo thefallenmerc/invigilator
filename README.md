@@ -9,10 +9,11 @@
 [x] - CMS > Test Create
 [x] - CMS > Test List
 [x] - CMS > Test Assign
+[x] - User Fetch Test [ by id ]
 
 
 #### Functionlity to be Added
 
 [ ] - User Authorization on role basis
-[ ] - User Fetch Test
+[ ] - User Fetch Test [ all ]
 [ ] - User Save Result

@@ -87,6 +87,8 @@ module.exports = class TestController {
       }
     }));
 
+    // send mail to user regarding the test
+
     return res.json({
       message: "Test Created For Users",
       tests
