@@ -4,7 +4,10 @@ const Helper = require("../config/helper");
 const JWT = require('jsonwebtoken');
 
 const LoginValidator = require('../validators/login_validator');
+const Validator = require('../validators/validator');
 const UserResource = require("../resources/user_resource");
+const ResponseHelper = require("../helpers/response_helper");
+const { all } = require("../routes/api");
 
 module.exports = class AuthController {
     static async register(req, res) {
@@ -55,11 +58,38 @@ module.exports = class AuthController {
         }
 
         // generate jwt token
-        const token = await JWT.sign(user.toObject(), process.env.APP_KEY, {expiresIn: "365days"})
+        const token = await JWT.sign(user.toObject(), process.env.APP_KEY, { expiresIn: "365days" })
 
         user.token = token;
 
         // return user
         return res.json(new UserResource(user))
+    }
+
+    static profile(req, res) {
+        const { user } = req;
+        delete user.token;
+        return res.status(200).json(user);
+    }
+
+    static async update(req, res) {
+        const validator = new Validator(req.body, {
+            name: "string|required"
+        });
+
+        if (validator.fails()) {
+            return ResponseHelper.s422(res, validator.errors().all());
+        }
+
+        // update user
+        const user = await User.findOneAndUpdate({
+            email: req.user.email
+        }, {
+            name: validator.validated.name
+        }, {
+            new: true
+        });
+
+        return res.json(user);
     }
 }

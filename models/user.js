@@ -14,6 +14,7 @@ const userSchema = new Schema({
     type: Schema.Types.String,
     trim: true,
   },
+  role: String,
   password: {
     required: true,
     type: Schema.Types.String,

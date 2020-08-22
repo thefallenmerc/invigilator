@@ -16,7 +16,9 @@ async function AuthMiddleware(req, res, next) {
     try {
         const isVerified = await JWT.verify(token, process.env.APP_KEY);
         // get user
-        const user = await (await User.findOne({ email: isVerified.email })).toObject();
+        const user = await (await User.findOne({
+            email: isVerified.email
+        }));
         // add token to user
         user.token = isVerified;
         // add user to request

@@ -26,6 +26,9 @@ const AuthMiddleware = require("../middlewares/auth_middleware");
 router.post('/auth/register', RegisterValidator.middleware, AuthController.register);
 router.post('/auth/login',LoginValidator.middleware, AuthController.login);
 
+router.get('/auth/profile', AuthMiddleware, AuthController.profile);
+router.post('/auth/profile', AuthMiddleware, AuthController.update);
+
 // cms
 // Test Controller
 router.get('/cms/test', AuthMiddleware, TestController.index);

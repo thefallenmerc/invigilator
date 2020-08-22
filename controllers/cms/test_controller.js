@@ -13,7 +13,5 @@ module.exports = class TestController {
     });
   }
 
-  static update(req, res) { }
-
   static delete(req, res) { }
 };
