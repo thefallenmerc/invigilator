@@ -13,6 +13,21 @@ const userTestSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User",
     },
+    startTime: {
+        required: false,
+        default: null,
+        type: Date,
+    },
+    endTime: {
+        required: false,
+        default: null,
+        type: Date,
+    },
+    isExpired: {
+        required: true,
+        default: false,
+        type: Boolean
+    },
     isCompleted: {
         required: true,
         default: false,

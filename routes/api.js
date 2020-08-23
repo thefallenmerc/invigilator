@@ -40,6 +40,7 @@ router.get('/cms/test', AuthMiddleware, CMSTestController.index);
 router.post('/cms/test', AuthMiddleware, TestValidator.middleware, CMSTestController.create);
 router.post('/cms/test/assign', AuthMiddleware, CMSTestController.assignTest);
 
+router.get('/test/start/:id', AuthMiddleware, TestController.start);
 router.get('/test/:id', AuthMiddleware, TestController.get);
 
 router.get('/version', SampleMiddleware, SampleController.index);
