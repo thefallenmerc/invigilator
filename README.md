@@ -12,6 +12,7 @@
 - [x] User > Fetch Test [ by id ]
 - [x] User > Start Test
 - [x] User Save Test Progress [Save Answer]
+- [x] User > Finish Test
 
 
 #### Functionlity to be Added

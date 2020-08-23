@@ -145,6 +145,41 @@ class TestController {
 
     }
 
+    static async finish(req, res) {
+        // get id
+        const { id } = req.params;
+
+        // validate id
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return ResponseHelper.s400(res, null, "Invalid Test Id");
+        }
+
+        // get test from db
+        const userTest = await UserTest.findOne({
+            _id: id,
+            user: req.user._id
+        }).populate('test');
+
+        // validate test
+        if (!userTest) {
+            return ResponseHelper.s404(res, null, "Test not found!");
+        }
+
+        if (await TestController.checkIfTestExpired(userTest)) {
+            return ResponseHelper.s400(res, null, "Test Expired!");
+        }
+
+        userTest.isExpired = true;
+        userTest.isCompleted = true;
+        userTest.endTime = moment.now();
+        userTest.result = "pending";
+
+        await userTest.save();
+
+        // return test
+        return res.json(userTest);
+    }
+
     static async checkIfTestCompleted(userTest) {
         return userTest.isCompleted;
     }
