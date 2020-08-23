@@ -27,20 +27,7 @@ class TestController {
             return ResponseHelper.s404(res, null, "Test not found!");
         }
 
-        // if the date of test has passed
-        if (moment(userTest.date).isBefore(moment().format('YYYY-MM-DD'))) {
-            await userTest.update({
-                isExpired: true,
-                isCompleted: false,
-                result: "disqualified"
-            });
-            return ResponseHelper.s400(res, null, "Test expired!");
-        }
-
-        // if the time allotted is expired
-        if (userTest.startTime && moment(userTest.startTime).add(userTest.test.timeAlloted, 'minutes').isBefore(moment.now())) {
-            return ResponseHelper.s400(res, null, "Test time allotted expired!");
-        }
+        await TestController.checkIfTestExpired(userTest)
 
         // return test
         return res.json(userTest);
@@ -76,7 +63,7 @@ class TestController {
 
         // check if test expired
         const isExpired = await TestController.checkIfTestExpired(userTest);
-        if(isExpired) {
+        if (isExpired) {
             return ResponseHelper.s400(res, null, "Test expired!");
         }
 
@@ -107,7 +94,7 @@ class TestController {
             answer: "string|required"
         });
 
-        if(validator.fails()) {
+        if (validator.fails()) {
             return ResponseHelper.s422(res, validator.errors().all());
         }
 
@@ -135,7 +122,7 @@ class TestController {
         }
 
         // check if test is started
-        if(!userTest.startTime) {
+        if (!userTest.startTime) {
             return ResponseHelper.s400(res, null, "Test not started Yet!");
         }
 
@@ -150,12 +137,16 @@ class TestController {
             question: questionId,
             answer: req.body.answer
         })
-        
+
         await userTest.save();
 
         return res.json(userTest);
 
 
+    }
+
+    static async checkIfTestCompleted(userTest) {
+        return userTest.isCompleted;
     }
 
     /**
@@ -172,22 +163,20 @@ class TestController {
         }
 
         // if the date of test has passed
-        if (moment(userTest.date).isBefore(moment().format('YYYY-MM-DD'))) {
-            await userTest.updateOne({
-                isExpired: true,
-                isCompleted: false,
-                result: "disqualified"
-            });
+        if (!userTest.endTime && moment(userTest.date).isBefore(moment().format('YYYY-MM-DD'))) {
+            userTest.isExpired = true;
+            userTest.isCompleted = false;
+            userTest.result = "pending";
+            await userTest.save();
             return true;
         }
 
         // if the time allotted is expired
-        if (userTest.startTime && moment(userTest.startTime).add(userTest.test.timeAlloted, 'minutes').isBefore(moment.now()) && isCompleted === false) {
-            await userTest.updateOne({
-                isExpired: true,
-                isCompleted: false,
-                result: "disqualified"
-            });
+        if (userTest.startTime && moment(userTest.startTime).add(userTest.test.timeAlloted, 'minutes').isBefore(moment.now()) && userTest.isCompleted === false) {
+            userTest.isExpired = true;
+            userTest.isCompleted = false;
+            userTest.result = "pending";
+            await userTest.save();
             return true;
         }
 
