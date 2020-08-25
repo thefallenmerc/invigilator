@@ -13,10 +13,10 @@
 - [x] User > Start Test
 - [x] User Save Test Progress [Save Answer]
 - [x] User > Finish Test
+- [x] User Authorization on role basis
 
 
 #### Functionlity to be Added
 
-- [ ] User Authorization on role basis
 - [ ] User Fetch Test [ all ]
 - [ ] User Save Result
