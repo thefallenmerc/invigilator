@@ -19,6 +19,7 @@ const AuthController = require("../controllers/auth_controller");
  */
 const SampleMiddleware = require("../middlewares/sample_middleware");
 const AuthMiddleware = require("../middlewares/auth_middleware");
+const AdminMiddleware = require("../middlewares/admin_middleware");
 
 /**
  * Import all Validators
@@ -36,9 +37,9 @@ router.post('/auth/profile', AuthMiddleware, AuthController.update);
 
 // cms
 // Test Controller
-router.get('/cms/test', AuthMiddleware, CMSTestController.index);
-router.post('/cms/test', AuthMiddleware, TestValidator.middleware, CMSTestController.create);
-router.post('/cms/test/assign', AuthMiddleware, CMSTestController.assignTest);
+router.get('/cms/test', AuthMiddleware, AdminMiddleware, CMSTestController.index);
+router.post('/cms/test', AuthMiddleware, AdminMiddleware, TestValidator.middleware, CMSTestController.create);
+router.post('/cms/test/assign', AuthMiddleware, AdminMiddleware, CMSTestController.assignTest);
 
 router.get('/test/start/:id', AuthMiddleware, TestController.start);
 router.post('/test/save/:id/:questionId', AuthMiddleware, TestController.save);
