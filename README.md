@@ -4,6 +4,8 @@
 
 #### Functionality Added
 
+##### Backend
+
 - [x] User Login
 - [x] User Register
 - [x] CMS > Test Create
@@ -15,8 +17,23 @@
 - [x] User > Finish Test
 - [x] User Authorization on role basis
 
+##### Frontend
+- [x] Basic Structure
+- [x] Redux Support
+- [x] Request State 
+- [x] User State
+- [x] Routing Support
+- [x] Protected Routes
+- [x] Placeholder Pages for Login and Home
+
 
 #### Functionlity to be Added
 
+##### Backend
+
 - [ ] User Fetch Test [ all ]
 - [ ] User Save Result
+
+##### Frontend
+
+- [ ] All the views
