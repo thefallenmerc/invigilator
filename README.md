@@ -25,6 +25,7 @@
 - [x] Routing Support
 - [x] Protected Routes
 - [x] Placeholder Pages for Login and Home
+- [x] Navbar
 
 
 #### Functionlity to be Added
