@@ -44,17 +44,19 @@ module.exports = class AuthController {
         const user = await User.findOne({ email });
         // check user
         if (!user) {
-            return res.json({
+            return res.status(422).json({
                 email: [
                     "Invalid user email!"
                 ]
-            }, 422);
+            });
         }
         // check password
         if (! await bcrypt.compare(password, user.password)) {
-            return res.json({
-                error: "Invalid password!"
-            }, 401);
+            return res.status(422).json({
+                password: [
+                    "Invalid password!"
+                ]
+            });
         }
 
         // generate jwt token
