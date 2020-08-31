@@ -10,13 +10,6 @@ function LoginPageComponent({ login, errors }) {
     return (
         <div className="py-24 flex justify-center">
             <div style={{ width: "320px" }}>
-                {
-                    errors
-                        ? Object.values(errors).map((error, i) => (
-                            <span className="text-red-500 block mb-2" key={i}>{error}</span>
-                        ))
-                        : ""
-                }
                 <Formik
                     initialValues={{ email: "", password: "" }}
                     validate={values => {
@@ -36,7 +29,7 @@ function LoginPageComponent({ login, errors }) {
                     }}>
                     {({
                         values,
-                        errors,
+                        errors: formErrors,
                         touched,
                         handleChange,
                         handleBlur,
@@ -55,7 +48,10 @@ function LoginPageComponent({ login, errors }) {
                                     value={values.email}
                                 />
                                 <span className="text-xs mb-3 block text-red-500">
-                                    {errors.email && touched.email && errors.email}
+                                    {formErrors.email && touched.email && formErrors.email}
+                                </span>
+                                <span className="text-xs mb-3 block text-red-500">
+                                    {errors.validation && errors.validation.email && errors.validation.email[0]}
                                 </span>
                                 <input
                                     name="password"
@@ -67,7 +63,10 @@ function LoginPageComponent({ login, errors }) {
                                     value={values.password}
                                 />
                                 <span className="text-xs mb-3 block text-red-500">
-                                    {errors.password && touched.password && errors.password}
+                                    {formErrors.password && touched.password && formErrors.password}
+                                </span>
+                                <span className="text-xs mb-3 block text-red-500">
+                                    {errors.validation && errors.validation.password && errors.validation.password[0]}
                                 </span>
                                 <button
                                     className="bg-red-500 rounded text-sm px-3 py-1 text-white uppercase block mx-auto"

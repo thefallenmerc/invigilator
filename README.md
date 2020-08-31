@@ -16,6 +16,7 @@
 - [x] User Save Test Progress [Save Answer]
 - [x] User > Finish Test
 - [x] User Authorization on role basis
+- [x] Refixed auth api and code
 
 ##### Frontend
 - [x] Basic Structure
@@ -26,6 +27,7 @@
 - [x] Protected Routes
 - [x] Placeholder Pages for Login and Home
 - [x] Navbar
+- [x] User Login Page
 
 
 #### Functionlity to be Added

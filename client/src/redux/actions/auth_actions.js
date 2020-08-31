@@ -1,6 +1,6 @@
 export const REQUEST_STATE_PENDING = 'REQUEST_STATE_PENDING';
 export const REQUEST_STATE_FAILURE = 'REQUEST_STATE_FAILURE';
-export const REQUEST_STATE_SUCCESS = 'AUTH_LOGIN_COMPLETE';
+export const REQUEST_STATE_SUCCESS = 'REQUEST_STATE_COMPLETE';
 
 export {
     setStatePending, setStateFailure, setStateSuccess

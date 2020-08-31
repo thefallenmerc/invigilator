@@ -1,6 +1,7 @@
 import { setStatePending, setStateSuccess, setStateFailure } from "./auth_actions";
 import AuthService from "../../services/auth.service";
 import { setErrors } from "./error_actions";
+import history from "../../config/history.config";
 
 export const ADD_USER = "ADD_USER";
 export const REMOVE_USER = "REMOVE_USER";
@@ -25,16 +26,16 @@ function removeUser() {
 function attemptLogin({ email, password }) {
     return (dispatch, getState) => {
         dispatch(setStatePending());
-        console.log(AuthService);
         return AuthService.login({ email, password })
             .then(response => {
-                console.log({ response })
+                console.log({ response });
+                dispatch(addUser(response.data));
                 dispatch(setStateSuccess());
+                history.push('/');
                 return true;
             })
             .catch(error => {
-                console.log({ error });
-                dispatch(setErrors(error.response.data))
+                dispatch(setErrors({ validation: error.response.data }));
                 dispatch(setStateFailure());
                 return false;
             });
