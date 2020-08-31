@@ -3,11 +3,12 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { LOGIN_ROUTE } from '../pages/login-page';
+import { HOME_ROUTE } from '../pages/home-page';
 
 function NavbarComponent({ user }) {
     return (
         <div className="shadow px-2 py-3 bg-red-500 text-white flex justify-between">
-            <div>Invigilator</div>
+            <Link to={HOME_ROUTE}>Invigilator</Link>
             {
                 user
                     ? ''

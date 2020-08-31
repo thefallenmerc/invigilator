@@ -5,7 +5,7 @@ import { setStateSuccess } from './redux/actions/auth_actions'
 import { addUser } from './redux/actions/user_actions';
 import { Router, Switch, Route } from 'react-router-dom';
 import ProtectedRoute from './components/protected-route';
-import HomePage from './pages/home-page';
+import HomePage, { HOME_ROUTE } from './pages/home-page';
 import history from './config/history.config';
 import LoginPage, { LOGIN_ROUTE } from './pages/login-page';
 import Navbar from './components/navbar';
@@ -16,7 +16,7 @@ export default function App() {
             <Router history={history}>
                 <Navbar />
                 <Switch>
-                    <Route path="/" exact={true} component={HomePage} />
+                    <Route path={HOME_ROUTE} exact={true} component={HomePage} />
                     <Route path={LOGIN_ROUTE} component={LoginPage} />
                     <ProtectedRoute path="/dashboard" exact={true} component={HomePage} />
                 </Switch>
