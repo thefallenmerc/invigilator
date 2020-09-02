@@ -11,6 +11,12 @@ import LoginPage, { LOGIN_ROUTE } from './pages/login-page';
 import Navbar from './components/navbar';
 import RegisterPage, { REGISTER_ROUTE } from './pages/register-page';
 
+const user = localStorage.getItem('user');
+
+if(user) {
+    store.dispatch(addUser(JSON.parse(user)));
+}
+
 export default function App() {
     return (
         <Provider store={store}>
