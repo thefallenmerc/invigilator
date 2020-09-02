@@ -1,8 +1,8 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
-import { LOGIN_ROUTE } from '../pages/login-page'
+import { HOME_ROUTE } from '../pages/home-page'
 
-export default function ProtectedRoute({
+export default function AdminRoute({
     component: Component,
     user,
     ...rest
@@ -10,9 +10,9 @@ export default function ProtectedRoute({
     return (
         <Route {...rest}>
             {
-                user
+                user && user.role === 'admin'
                     ? <Component />
-                    : <Redirect to={LOGIN_ROUTE} />
+                    : <Redirect to={HOME_ROUTE} />
             }
         </Route>
     )
