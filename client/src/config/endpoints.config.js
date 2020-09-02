@@ -5,6 +5,9 @@ const Endpoints = {
         login: baseURL + "auth/login",
         register: baseURL + "auth/register",
     },
+    cms: {
+        test: baseURL + "cms/test",
+    },
 }
 
 export default Endpoints;
