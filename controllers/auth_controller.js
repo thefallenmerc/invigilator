@@ -16,12 +16,10 @@ module.exports = class AuthController {
             const hashedPassword = await bcrypt.hash(req.body.password, 10)
             // check if already there
             if (await User.exists({ email: req.body.email })) {
-                return res.json({
-                    error: {
-                        email: [
-                            "Email Already Exists"
-                        ]
-                    }
+                return res.status(422).json({
+                    email: [
+                        "Email Already In Use!"
+                    ]
                 });
             };
             // create the user
@@ -32,7 +30,7 @@ module.exports = class AuthController {
             });
             await user.save();
             // return the user
-            return res.json({ user })
+            return await AuthController.login(req, res);
         } catch (err) {
             return Helper.response.s500(res);
         }
