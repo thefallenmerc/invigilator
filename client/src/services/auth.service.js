@@ -7,5 +7,12 @@ export default {
             email,
             password
         });
+    },
+    register: ({ name, email, password }) => {
+        return axios.post(Endpoints.auth.register, {
+            name,
+            email,
+            password
+        });
     }
 };
