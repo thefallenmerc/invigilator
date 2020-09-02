@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { LOGIN_ROUTE } from '../pages/login-page';
 import { HOME_ROUTE } from '../pages/home-page';
+import { REGISTER_ROUTE } from '../pages/register-page';
 
 function NavbarComponent({ user }) {
     return (
@@ -15,7 +16,7 @@ function NavbarComponent({ user }) {
                     : (
                         <div>
                             <Link className="px-2 py-1 text-gray-300 hover:text-white" to={LOGIN_ROUTE}>Login</Link>
-                            <Link className="px-2 py-1 text-gray-300 hover:text-white" to={LOGIN_ROUTE}>Register</Link>
+                            <Link className="px-2 py-1 text-gray-300 hover:text-white" to={REGISTER_ROUTE}>Register</Link>
                         </div>
                     )
 

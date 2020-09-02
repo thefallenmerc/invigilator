@@ -9,6 +9,7 @@ import HomePage, { HOME_ROUTE } from './pages/home-page';
 import history from './config/history.config';
 import LoginPage, { LOGIN_ROUTE } from './pages/login-page';
 import Navbar from './components/navbar';
+import RegisterPage, { REGISTER_ROUTE } from './pages/register-page';
 
 export default function App() {
     return (
@@ -18,6 +19,7 @@ export default function App() {
                 <Switch>
                     <Route path={HOME_ROUTE} exact={true} component={HomePage} />
                     <Route path={LOGIN_ROUTE} component={LoginPage} />
+                    <Route path={REGISTER_ROUTE} component={RegisterPage} />
                     <ProtectedRoute path="/dashboard" exact={true} component={HomePage} />
                 </Switch>
             </Router>
