@@ -40,6 +40,7 @@ router.post('/auth/profile', AuthMiddleware, AuthController.update);
 router.get('/cms/test', AuthMiddleware, AdminMiddleware, CMSTestController.index);
 router.post('/cms/test', AuthMiddleware, AdminMiddleware, TestValidator.middleware, CMSTestController.create);
 router.post('/cms/test/assign', AuthMiddleware, AdminMiddleware, CMSTestController.assignTest);
+router.get('/cms/test/:id', AuthMiddleware, AdminMiddleware, CMSTestController.show);
 
 router.get('/test/start/:id', AuthMiddleware, TestController.start);
 router.post('/test/save/:id/:questionId', AuthMiddleware, TestController.save);

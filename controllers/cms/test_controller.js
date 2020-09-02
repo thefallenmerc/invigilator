@@ -9,6 +9,17 @@ module.exports = class TestController {
     return res.json(await Test.find({ user: req.user.id }));
   }
 
+  static async show(req, res) {
+    const { id } = req.params;
+
+    // validate id
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      ResponseHelper.s400(res, null, "Invalid test id");
+    }
+
+    return res.json(await Test.findOne({ _id: id, user: req.user.id }));
+  }
+
   static async create(req, res) {
     const test = await Test.create({ user: req.user.id, ...req.body });
     return res.json({
