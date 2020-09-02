@@ -24,8 +24,8 @@ function RegisterPageComponent({ login, errors }) {
                         return errors;
                     }}
                     onSubmit={(values, { setSubmitting }) => {
-                        login(values)
                         setSubmitting(false);
+                        login(values)
                     }}>
                     {({
                         values,
