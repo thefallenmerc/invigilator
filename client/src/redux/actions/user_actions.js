@@ -7,7 +7,7 @@ export const ADD_USER = "ADD_USER";
 export const REMOVE_USER = "REMOVE_USER";
 
 export {
-    addUser, removeUser, attemptLogin
+    addUser, removeUser, attemptLogin, attemptRegister
 }
 
 function addUser(user) {
@@ -27,6 +27,25 @@ function attemptLogin({ email, password }) {
     return (dispatch, getState) => {
         dispatch(setStatePending());
         return AuthService.login({ email, password })
+            .then(response => {
+                console.log({ response });
+                dispatch(addUser(response.data));
+                dispatch(setStateSuccess());
+                history.push('/');
+                return true;
+            })
+            .catch(error => {
+                dispatch(setErrors({ validation: error.response.data }));
+                dispatch(setStateFailure());
+                return false;
+            });
+    }
+}
+
+function attemptRegister({ name, email, password }) {
+    return (dispatch, getState) => {
+        dispatch(setStatePending());
+        return AuthService.register({ name, email, password })
             .then(response => {
                 console.log({ response });
                 dispatch(addUser(response.data));
