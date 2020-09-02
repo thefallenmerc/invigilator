@@ -3,6 +3,8 @@ import AuthService from "../../services/auth.service";
 import { setErrors } from "./error_actions";
 import history from "../../config/history.config";
 import { LOGIN_ROUTE } from "../../pages/login-page";
+import { HOME_ROUTE } from "../../pages/home-page";
+import { DASHBOARD_ROUTE } from "../../pages/dashboard-page";
 
 export const ADD_USER = "ADD_USER";
 export const REMOVE_USER = "REMOVE_USER";
@@ -36,10 +38,15 @@ function attemptLogin({ email, password }) {
         dispatch(setStatePending());
         return AuthService.login({ email, password })
             .then(response => {
-                console.log({ response });
-                dispatch(addUserAndSave(response.data));
+                const user = response.data;
+                dispatch(addUserAndSave(user));
                 dispatch(setStateSuccess());
-                history.push('/');
+                console.log(user.role)
+                if (user.role === "admin") {
+                    history.push(DASHBOARD_ROUTE);
+                } else {
+                    history.push(HOME_ROUTE);
+                }
                 return true;
             })
             .catch(error => {
@@ -55,10 +62,15 @@ function attemptRegister({ name, email, password }) {
         dispatch(setStatePending());
         return AuthService.register({ name, email, password })
             .then(response => {
-                console.log({ response });
-                dispatch(addUser(response.data));
+                const user = response.data;
+                dispatch(addUserAndSave(user));
                 dispatch(setStateSuccess());
-                history.push('/');
+                console.log(user.role)
+                if (user.role === "admin") {
+                    history.push(DASHBOARD_ROUTE);
+                } else {
+                    history.push(HOME_ROUTE);
+                }
                 return true;
             })
             .catch(error => {
@@ -67,7 +79,7 @@ function attemptRegister({ name, email, password }) {
                 return false;
             });
     }
-} 
+}
 
 function attemptLogout() {
     return (dispatch, getState) => {
