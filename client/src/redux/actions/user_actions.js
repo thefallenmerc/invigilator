@@ -2,12 +2,13 @@ import { setStatePending, setStateSuccess, setStateFailure } from "./auth_action
 import AuthService from "../../services/auth.service";
 import { setErrors } from "./error_actions";
 import history from "../../config/history.config";
+import { LOGIN_ROUTE } from "../../pages/login-page";
 
 export const ADD_USER = "ADD_USER";
 export const REMOVE_USER = "REMOVE_USER";
 
 export {
-    addUser, removeUser, attemptLogin, attemptRegister
+    addUser, removeUser, attemptLogin, attemptRegister, attemptLogout
 }
 
 function addUser(user) {
@@ -60,3 +61,10 @@ function attemptRegister({ name, email, password }) {
             });
     }
 } 
+
+function attemptLogout() {
+    return (dispatch, getState) => {
+        dispatch(removeUser());
+        history.push(LOGIN_ROUTE);
+    }
+}
