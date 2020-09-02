@@ -18,6 +18,13 @@ function addUser(user) {
     }
 }
 
+function addUserAndSave(user) {
+    return (dispatch, getState) => {
+        dispatch(addUser(user));
+        localStorage.setItem('user', JSON.stringify(user));
+    }
+}
+
 function removeUser() {
     return {
         type: REMOVE_USER
@@ -30,7 +37,7 @@ function attemptLogin({ email, password }) {
         return AuthService.login({ email, password })
             .then(response => {
                 console.log({ response });
-                dispatch(addUser(response.data));
+                dispatch(addUserAndSave(response.data));
                 dispatch(setStateSuccess());
                 history.push('/');
                 return true;
@@ -65,6 +72,7 @@ function attemptRegister({ name, email, password }) {
 function attemptLogout() {
     return (dispatch, getState) => {
         dispatch(removeUser());
+        localStorage.removeItem('user');
         history.push(LOGIN_ROUTE);
     }
 }
