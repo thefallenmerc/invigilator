@@ -6,11 +6,19 @@ import { LOGIN_ROUTE } from '../pages/login-page';
 import { HOME_ROUTE } from '../pages/home-page';
 import { REGISTER_ROUTE } from '../pages/register-page';
 import { attemptLogout } from '../redux/actions/user_actions';
+import { DASHBOARD_ROUTE } from '../pages/dashboard-page';
 
 function NavbarComponent({ user, logout }) {
     return (
         <div className="shadow px-2 py-3 bg-red-500 text-white flex justify-between">
-            <Link to={HOME_ROUTE}>Invigilator</Link>
+            <div>
+                <Link to={HOME_ROUTE}>Invigilator</Link>
+                {
+                    user && user.role === "admin" && (
+                        <Link className="px-2 py-1 text-gray-300 hover:text-white" to={DASHBOARD_ROUTE}>Dashboard</Link>
+                    )
+                }
+            </div>
             {
                 user
                     ? (
